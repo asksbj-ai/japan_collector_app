@@ -1,0 +1,23 @@
+<!-- 添加物品页面 -->
+<view class="container">
+  <view class="header">
+    <text class="title">添加物品</text>
+  </view>
+  <view class="form">
+    <view class="form-item">
+      <text>物品名称</text>
+      <input placeholder="请输入物品名称" />
+    </view>
+    <view class="form-item">
+      <text>数量</text>
+      <input type="number" placeholder="请输入数量" />
+    </view>
+    <view class="form-item">
+      <text>分类</text>
+      <picker mode="selector" range="{{categories}}">
+        <view>请选择分类</view>
+      </picker>
+    </view>
+    <button class="btn-submit">保存</button>
+  </view>
+</view>

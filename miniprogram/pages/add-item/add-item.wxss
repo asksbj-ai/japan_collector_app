@@ -1,0 +1,35 @@
+/* pages/add-item/add-item.wxss */
+.container {
+  padding: 20rpx;
+}
+
+.header .title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.form {
+  margin-top: 30rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item text {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+}
+
+.form-item input {
+  border: 1rpx solid #ddd;
+  padding: 20rpx;
+  border-radius: 8rpx;
+}
+
+.btn-submit {
+  background-color: #07c160;
+  color: #fff;
+  margin-top: 40rpx;
+}

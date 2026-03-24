@@ -1,0 +1,9 @@
+<!-- 物品列表页面 -->
+<view class="container">
+  <view class="header">
+    <text class="title">物品清单</text>
+  </view>
+  <view class="content">
+    <text>物品列表内容</text>
+  </view>
+</view>

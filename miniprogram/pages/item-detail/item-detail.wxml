@@ -1,0 +1,9 @@
+<!-- 物品详情页面 -->
+<view class="container">
+  <view class="header">
+    <text class="title">物品详情</text>
+  </view>
+  <view class="content">
+    <text>物品详情内容</text>
+  </view>
+</view>
