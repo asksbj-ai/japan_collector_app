@@ -1,0 +1,22 @@
+<!--pages/search/search.wxml-->
+<view class="container">
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="搜索物品名称" 
+      bindinput="onSearch"
+      value="{{searchQuery}}"
+    />
+    <view class="clear-btn" bindtap="onClear" wx:if="{{searchQuery}}">×</view>
+  </view>
+  <view class="search-results">
+    <block wx:if="{{searchResults.length > 0}}">
+      <view class="result-item" wx:for="{{searchResults}}" wx:key="id">
+        {{item.name}}
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-tip">请输入搜索关键词</view>
+    </block>
+  </view>
+</view>

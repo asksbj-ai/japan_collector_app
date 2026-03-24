@@ -1,0 +1,38 @@
+/* pages/settings/settings.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.header {
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.settings-list {
+  padding: 0 20rpx;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 2rpx;
+}
+
+.setting-label {
+  font-size: 32rpx;
+}
+
+.setting-value {
+  font-size: 28rpx;
+  color: #999;
+}

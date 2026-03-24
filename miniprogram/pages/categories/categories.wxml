@@ -1,0 +1,16 @@
+<!--pages/categories/categories.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">分类管理</text>
+    <button class="add-btn" size="mini" bindtap="onAddCategory">+ 添加</button>
+  </view>
+  
+  <view class="category-list">
+    <block wx:for="{{categories}}" wx:key="id">
+      <view class="category-item">
+        <text class="category-icon">{{item.icon}}</text>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </block>
+  </view>
+</view>

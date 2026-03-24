@@ -1,0 +1,27 @@
+<!--pages/restock/restock.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">补货清单</text>
+    <text class="subtitle">库存不足的物品</text>
+  </view>
+  
+  <view class="restock-list">
+    <block wx:if="{{restockList.length > 0}}">
+      <view class="restock-item" wx:for="{{restockList}}" wx:key="id">
+        <view class="item-info">
+          <text class="item-name">{{item.name}}</text>
+          <text class="stock-info">当前: {{item.currentStock}} / 最低: {{item.minStock}}</text>
+        </view>
+        <button 
+          class="restock-btn" 
+          size="mini" 
+          bindtap="onMarkRestocked"
+          data-id="{{item.id}}"
+        >已补货</button>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="empty-tip">所有物品库存充足 🎉</view>
+    </block>
+  </view>
+</view>

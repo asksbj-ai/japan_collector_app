@@ -1,12 +1,51 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/items/items",
+    "pages/item-detail/item-detail",
+    "pages/add-item/add-item",
+    "pages/search/search",
+    "pages/restock/restock",
+    "pages/categories/categories",
+    "pages/settings/settings"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "云开发示例",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "厨房库存管理",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#2196F3",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/items/items",
+        "text": "物品",
+        "iconPath": "images/items.png",
+        "selectedIconPath": "images/items-active.png"
+      },
+      {
+        "pagePath": "pages/restock/restock",
+        "text": "补货",
+        "iconPath": "images/restock.png",
+        "selectedIconPath": "images/restock-active.png"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "设置",
+        "iconPath": "images/settings.png",
+        "selectedIconPath": "images/settings-active.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }
