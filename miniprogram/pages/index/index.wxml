@@ -1,0 +1,28 @@
+<!--miniprogram/pages/index/index.wxml-->
+<view class="container">
+  <view class="env-info">
+    <view class="env-label">当前环境</view>
+    <view class="env-name">{{envName}}</view>
+    <view class="env-id">EnvID: {{envId}}</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">切换环境</view>
+    <view class="env-buttons">
+      <button 
+        wx:for="{{envList}}" 
+        wx:key="key" 
+        wx:for-item="item"
+        data-env="{{item.key}}"
+        bindtap="switchEnv"
+        class="env-btn">
+        {{item.name}}
+      </button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">功能测试</view>
+    <button bindtap="testDatabase" class="test-btn">测试数据库连接</button>
+  </view>
+</view>
