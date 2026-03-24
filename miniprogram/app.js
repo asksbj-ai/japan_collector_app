@@ -1,57 +1,142 @@
 /**
  * 小程序入口文件
- * 云开发环境配置初始化
+ * 全局应用入口与初始化流程
  */
 
-const { setCurrentEnv, getEnvId, getEnvName, getEnvConfig, ENV } = require('./config/env.js');
+const initManager = require('./config/init.js');
+const { getEnvId, getEnvName, getEnvConfig, ENV } = require('./config/env.js');
 
 App({
+  // 全局数据
+  globalData: {
+    // 用户信息
+    userInfo: null,
+    isLoggedIn: false,
+    
+    // 应用状态
+    appReady: false,
+    isInitialized: false,
+    
+    // 环境信息
+    envId: '',
+    envName: '',
+    
+    // 设置
+    settings: {
+      theme: 'light',
+      language: 'zh-CN',
+      notifications: true
+    }
+  },
+
   onLaunch() {
-    // 初始化云开发
-    this.initCloud();
+    // 执行应用初始化
+    this.initApp();
   },
 
   /**
-   * 初始化云开发
-   * 从配置模块读取 envId，支持多环境切换
+   * 应用初始化入口
    */
-  initCloud() {
-    const envId = getEnvId();
-    const envName = getEnvName();
-    const config = getEnvConfig();
-
-    // 检查是否配置了有效的环境ID
-    if (!envId || envId.startsWith('your-')) {
-      console.warn('[Cloud] 警告: 环境ID未正确配置，请检查 config/env.js');
-      console.warn('[Cloud] 当前环境:', envName);
-      return;
+  async initApp() {
+    try {
+      // 执行初始化流程
+      await initManager.init();
+      
+      // 更新全局状态
+      this.globalData.isInitialized = true;
+      this.globalData.envId = getEnvId();
+      this.globalData.envName = getEnvName();
+      this.globalData.appReady = true;
+      
+      console.log('[App] 应用初始化完成');
+      
+    } catch (error) {
+      console.error('[App] 应用初始化失败:', error);
+      // 即使初始化失败，也标记为已尝试初始化
+      this.globalData.isInitialized = true;
     }
-
-    // 初始化云开发
-    wx.cloud.init({
-      env: envId,
-      traceUser: config.traceUser
-    });
-
-    console.log(`[Cloud] 云开发初始化完成，当前环境: ${envName} (${envId})`);
   },
 
   /**
    * 切换云开发环境
    * @param {string} env - 'dev' | 'test' | 'prod'
-   * @returns {boolean} 切换是否成功
+   * @returns {Promise<boolean>} 切换是否成功
    */
-  switchEnv(env) {
-    const success = setCurrentEnv(env);
-    if (success) {
-      // 重新初始化云开发
-      this.initCloud();
+  async switchEnv(env) {
+    try {
+      const success = await initManager.switchEnv(env);
+      if (success) {
+        this.globalData.envId = getEnvId();
+        this.globalData.envName = getEnvName();
+        console.log(`[App] 环境切换成功: ${this.globalData.envName}`);
+      }
+      return success;
+    } catch (error) {
+      console.error('[App] 环境切换失败:', error);
+      return false;
     }
-    return success;
   },
 
-  // 全局数据
-  globalData: {
-    userInfo: null
+  /**
+   * 获取当前环境配置
+   * @returns {Object}
+   */
+  getEnvConfig() {
+    return getEnvConfig();
+  },
+
+  /**
+   * 获取初始化结果
+   * @returns {Object}
+   */
+  getInitResults() {
+    return initManager.getInitResults();
+  },
+
+  /**
+   * 检查应用是否已就绪
+   * @returns {boolean}
+   */
+  isAppReady() {
+    return this.globalData.appReady && this.globalData.isInitialized;
+  },
+
+  /**
+   * 更新用户信息
+   * @param {Object} userInfo - 用户信息
+   */
+  setUserInfo(userInfo) {
+    this.globalData.userInfo = userInfo;
+    this.globalData.isLoggedIn = !!userInfo;
+  },
+
+  /**
+   * 更新设置
+   * @param {Object} settings - 设置对象
+   */
+  updateSettings(settings) {
+    this.globalData.settings = {
+      ...this.globalData.settings,
+      ...settings
+    };
+    
+    // 持久化设置
+    if (settings.theme) {
+      wx.setStorageSync('theme', settings.theme);
+    }
+    if (settings.language) {
+      wx.setStorageSync('language', settings.language);
+    }
+    if (typeof settings.notifications === 'boolean') {
+      wx.setStorageSync('notifications', settings.notifications);
+    }
+  },
+
+  /**
+   * 获取设置
+   * @returns {Object}
+   */
+  getSettings() {
+    return this.globalData.settings;
   }
 });
